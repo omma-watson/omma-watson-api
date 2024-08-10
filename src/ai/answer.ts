@@ -1,5 +1,6 @@
 import { JsonOutputParser } from '@langchain/core/output_parsers';
 import { PromptTemplate } from '@langchain/core/prompts';
+import { kv } from '@vercel/kv';
 
 import { model } from './constants';
 import {
@@ -84,5 +85,15 @@ export const answerQuestion = async (question: string) => {
     persona: '임신 15주차',
     products: [],
   };
+  return result;
+};
+
+export const answerQuestionCached = async (question: string) => {
+  const cacheKey = `answer:${question.replace(/ /g, '_')}`;
+  let result = await kv.get(cacheKey);
+  if (!result) {
+    result = await answerQuestion(question);
+    await kv.set(cacheKey, result);
+  }
   return result;
 };
