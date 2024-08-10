@@ -1,4 +1,8 @@
+import * as dotenv from 'dotenv';
+
 import { loadOrCreateVectorStore } from '../src/vectorstore';
+
+dotenv.config();
 
 // load data from ./전국통합식품영양성분정보_음식_표준데이터.json
 const data = require('../전국통합식품영양성분정보_음식_표준데이터.json');

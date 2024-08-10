@@ -5,8 +5,7 @@ import { MemoryVectorStore } from 'langchain/vectorstores/memory';
 import { pick } from './utils';
 
 // OpenAI
-const OPENAI_API_KEY =
-  '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';
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
 
 type DataRecord = {
   식품코드: string;
@@ -61,6 +60,7 @@ type DataRecord = {
   제공기관코드: string;
   제공기관명: string;
 };
+type DataRecordKey = Partial<keyof DataRecord>;
 
 type StoredVectorData = {
   memoryVectors: any[];
@@ -79,13 +79,13 @@ const textKeys = [
   '식품세분류명',
   '업체명',
   '제공기관명',
-];
+] as DataRecordKey[];
 
 const encodeRecords = (records: DataRecord[]) => {
   const texts = records.map((v) => JSON.stringify(pick(v, textKeys)));
   const metadataKeys = Object.keys(records[0]).filter(
-    (n) => !textKeys.includes(n) || n !== '식품코드',
-  );
+    (n) => !textKeys.includes(n as DataRecordKey) || n !== '식품코드',
+  ) as DataRecordKey[];
   const metadatas = records.map((v) => ({
     id: v.식품코드,
     ...pick(v, metadataKeys),
