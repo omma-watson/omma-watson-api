@@ -15,9 +15,10 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
     res.status(400).json({ error: 'Invalid Query Type' });
     return;
   }
-  res
-    .status(200)
-    .json(MOCKED_QUESTION_DETAILS.find((v) => v.id === questionId) || null);
+  res.status(200).json({
+    status: '아직 배포 전. 목업을 반환할게! ㅎㅎ!',
+    ...(MOCKED_QUESTION_DETAILS.find((v) => v.id === questionId) || {}),
+  });
 };
 
 export default withCORS(handler);

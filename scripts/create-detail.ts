@@ -29,7 +29,7 @@ const main = async () => {
       badge: 추천도. '추천', '양호', '주의', '위험' 중 하나.
       content: 상세 설명. Markdown으로 강조. 데이터를 인용하는 경우 출처를 꼭 명시해주세요 (소스에서 그대로).
       solution: 대안이나 주의사항, \`~하기\`, \`~보기\` 등과 같은 형태로 끝나는 짧은 여러 개의 추천. \`string[]\` 타입.
-      feedback.comment: 일반적인 의견, nested key
+      feedback.comment: 일반적인 의견. nested key
       `,
     inputVariables: ['question', 'analysis'],
   });

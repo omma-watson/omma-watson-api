@@ -1,6 +1,7 @@
 import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgres';
-import { OpenAIEmbeddings } from '@langchain/openai';
 import * as dotenv from 'dotenv';
+
+import { embeddings, vectorstoreConfig } from '@/ai';
 
 import {
   DATA_RECORD_TEXT_KEYS,
@@ -11,24 +12,15 @@ import { pick } from '../src/utils';
 
 dotenv.config();
 
-const POSTGRES_URL = process.env.POSTGRES_URL || '';
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
-
 // load data from ./전국통합식품영양성분정보_음식_표준데이터.json
 const data = require('../전국통합식품영양성분정보_음식_표준데이터.json');
 console.log(data.records);
 
 export async function main() {
-  const config = {
-    postgresConnectionOptions: {
-      connectionString: POSTGRES_URL,
-    },
-  };
-  const embeddings = new OpenAIEmbeddings({
-    apiKey: OPENAI_API_KEY,
-    model: 'text-embedding-3-small',
-  });
-  const vectorstore = await VercelPostgres.initialize(embeddings, config);
+  const vectorstore = await VercelPostgres.initialize(
+    embeddings,
+    vectorstoreConfig,
+  );
 
   const metadataKeys = Object.keys(data.records[0]).filter(
     (n) =>

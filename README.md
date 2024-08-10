@@ -44,12 +44,6 @@
 - `result_count` 기본값은 5
 - 유사도와 같이 반환함
 
-#### Request
-
-```json
-{ "query": "마라탕" }
-```
-
 #### Response
 
 - 키워드 -> 제일 유사한 상품 n개(query로 온 만큼, 기본값은 5) 골라서 `vectorStore.similaritySearch()`, 영양성분정보 반환
