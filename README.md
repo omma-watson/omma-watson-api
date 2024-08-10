@@ -52,8 +52,9 @@
 
 #### Response
 
-- 키워드 -> 제일 유사한 상품 n개(query로 온 만큼) 골라서 `vectorStore.similaritySearch()`, 영양성분정보 반환
+- 키워드 -> 제일 유사한 상품 n개(query로 온 만큼, 기본값은 5) 골라서 `vectorStore.similaritySearch()`, 영양성분정보 반환
 - Vercel Postgres VectorStore 로 구현됨 (3~5초 이내로 걸릴듯)
+- 다섯 개 다 각각 보여주면 좋을듯... 공공데이터에 쿼리가 없을 수 있음
 
 ```json
 [
