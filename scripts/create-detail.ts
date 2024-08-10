@@ -45,7 +45,7 @@ const extractGeneralFoodNameFromQuestion = async (
 
 const main = async () => {
   // 들어온 쿼리에서 검색어를 추출해 영양소 정보를 json으로 가져오게 하자
-  const question = '투썸케이크 먹어도 되나요?';
+  const question = '식혜 먹어도 되나요?';
   const [foodName, generalFoodName] = await Promise.all([
     extractFoodNameFromQuestion(question),
     extractGeneralFoodNameFromQuestion(question),
@@ -53,7 +53,7 @@ const main = async () => {
   console.log({ foodName, generalFoodName });
 
   const nutritionFacts = await searchNutritionFacts(foodName, 5);
-  const references = await searchReferences(question, 5);
+  const references = await searchReferences(question, 3);
   const minifiedReferences = (references as any[]).map((v) => [
     v.text.replaceAll('\n', ' '),
     v.metadata,
@@ -80,9 +80,9 @@ const main = async () => {
 
       응답 형식:
       badge: 추천도. '추천', '양호', '주의', '위험' 중 하나. 너무 보수적이거나 민감하게 반응하지 않기 위해 최대한 긍정적으로 추천해주세요. 추천을 하더라도, 상세 설명에서 고려해야 할 점들을 함께 써주세요.
-      content: 상세 설명. 추천도에 대한 근거. Markdown으로 강조. 최대한 많은 문장에 출처를 추가해주셔야 합니다. 출처 이름과 링크를 꼭 명시해주세요 (이름은 소스에서 그대로, 가능하면 링크 달기).
+      content: 상세 설명. 추천도에 대한 근거. Markdown으로 강조. 최대한 많은 문장에 출처를 추가해주셔야 합니다. 출처 이름(소스 그대로)과 링크도 꼭 다세요.
       적절한 값이 있을 경우 영양성분정보도 사용해야 하며, 출처를 꼭 달아야 합니다.
-      solution: 대안이나 주의사항, \`~하기\`, \`~보기\` 등과 같은 형태로 끝나는 짧은 여러 개의 추천. \`string[]\` 타입.
+      solution: 대안이나 주의사항, \`~하기\`, \`~보기\` 등과 같은 형태로 끝나는 짧은 여러 개의 추천. \`string[]\`.
       feedback.comment: \`임신 15주차 엄마의 (?)%가 (일반적인 의견)이라고 생각했어요.\` 형태로 작성하기. nested key
       `,
     inputVariables: ['question', 'nutritionFacts', 'references'],
