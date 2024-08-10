@@ -64,7 +64,6 @@ export const searchNutritionFacts = async (
         score,
       };
     });
-    console.log(result);
     await vectorstore.end();
     await kv.set(cacheKey, result);
   }
