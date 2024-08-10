@@ -1,6 +1,7 @@
 import { JsonOutputParser } from '@langchain/core/output_parsers';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { ChatOpenAI } from '@langchain/openai';
+import { kv } from '@vercel/kv';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,11 +21,13 @@ const main = async () => {
     template: `다음 분석을 바탕으로 구조화된 JSON 응답을 제공해주세요. 음식이 아닌 건 절대 안돼요로 하고 아니라고 해주세요.
 
       질문: {question}
-      영양소 검색 결과: {analysis}
+      영양소 정보: {analysis}
+      영양소 정보를 참고하는 경우, [출처: 전국통합식품영양성분정보(음식)표준데이터 (2024-08-06)]를 명시하고, 검색결과 중 들어온 질문과 일치하면서도 가장 극단적인 값들을 써주세요. (충분히 있다면, 하나 이상 참고해주시면 좋습니다)
+      나트륨과 트랜스지방에 민감하게 반응해주세요.
 
       응답 형식:
       badge: 추천도. '추천', '양호', '주의', '위험' 중 하나.
-      content: 상세 설명. Markdown으로 강조.
+      content: 상세 설명. Markdown으로 강조. 데이터를 인용하는 경우 출처를 꼭 명시해주세요 (소스에서 그대로).
       solution: 대안이나 주의사항, \`~하기\`, \`~보기\` 등과 같은 형태로 끝나는 짧은 여러 개의 추천. \`string[]\` 타입.
       feedback.comment: 일반적인 의견, nested key
       `,
@@ -32,7 +35,7 @@ const main = async () => {
   });
 
   const prompt = await promptTemplate.format({
-    question: '락스로 만든 칵테일을 마셔도 되나요?',
+    question: '라면 먹어도 되나요?',
     analysis: hardcoded_nutrition_data,
   });
   const parser = new JsonOutputParser();
