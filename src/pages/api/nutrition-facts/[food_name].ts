@@ -3,7 +3,7 @@ import { OpenAIEmbeddings } from '@langchain/openai';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { withCORS } from '../../../cors';
-import { DataRecord } from '../../../nutrition-facts';
+import { DataRecord, NUTRITION_KEYS } from '../../../nutrition-facts';
 import { pick } from '../../../utils';
 
 const POSTGRES_URL = process.env.POSTGRES_URL || '';
@@ -16,34 +16,6 @@ const stripEmpty = (obj: Record<string, any>) => {
     Object.entries(obj).filter(([_, value]) => value !== ''),
   );
 };
-
-const NUTRITION_KEYS = [
-  '인(mg)',
-  '철(mg)',
-  '당류(g)',
-  '수분(g)',
-  '지방(g)',
-  '회분(g)',
-  '칼륨(mg)',
-  '칼슘(mg)',
-  '단백질(g)',
-  '나트륨(mg)',
-  '니아신(mg)',
-  '티아민(mg)',
-  '레티놀(μg)',
-  '비타민 C(mg)',
-  '식이섬유(g)',
-  '에너지(kcal)',
-  '탄수화물(g)',
-  '포화지방산(g)',
-  '리보플라빈(mg)',
-  '콜레스테롤(mg)',
-  '베타카로틴(μg)',
-  '비타민 A(μg RAE)',
-  '트랜스지방산(g)',
-  // '식품중량',
-  // '영양성분함량기준량'
-];
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
