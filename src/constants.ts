@@ -83,6 +83,6 @@ export const MOCKED_TRENDINGS = (() => {
     title: '',
   }));
   items[0].title = '쫄깃쫄깃 당면 듬뿍 들어간 마라탕 2단계 먹어도 되나요?';
-  items[1].title = '생크림 잔뜩 들어간 딸기 케이크 어떤가요';
+  // items[1].title = '생크림 잔뜩 들어간 딸기 케이크 어떤가요';
   return items;
 })();
