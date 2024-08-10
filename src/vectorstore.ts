@@ -2,6 +2,8 @@ import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { OpenAIEmbeddings } from '@langchain/openai';
 import fs from 'fs/promises';
 
+import { pick } from './utils'
+
 // OpenAI
 const OPENAI_API_KEY = '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'
 
@@ -64,14 +66,6 @@ type StoredVectorData = {
   texts: string[];
   metadatas: object[];
 }
-
-const pick = (obj: Record<string, any>, keys: string[]) => {
-  const picked: Record<string, any> = {};
-  for (const key of keys) {
-    picked[key] = obj[key];
-  }
-  return picked;
-};
 
 const textKeys = [
   "식품명",

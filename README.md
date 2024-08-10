@@ -1,6 +1,6 @@
 # API
 
-- ID is string
+- All `id`s are typed as `string`
 
 ## Create
 
@@ -20,9 +20,9 @@
 3. 이유, 근거 (`content`)
 4. 꼭 먹어야 한다면? (`solution`)
 5. 다른 마미들은 이렇게 생각했어요
-    1. 찬성 👍 (`good`) -> `number` count
-    2. 반대 👎  (`bad`) -> `number` count
-6. AI가 refine한 마미 의견 총평
+    1. 찬성 👍 (`feedback.good`) -> `number` count
+    2. 반대 👎  (`feedback.bad`) -> `number` count
+6. AI가 refine한 마미 의견 총평 (`feedback.comment`)
     1. `나트륨은 좋지 않아요`
 7. NB상품 (`products` of `nb_product[]`)
     1. `title`
@@ -31,8 +31,9 @@
       1. 원가 `price.original`
       2. 소비자가(최종 가격) `price.final`
 8. `keyword` (아래의 영양성분 검색 API에 사용할 검색 키워드)
+9. `persona` (페르소나 사용자 정보)
 
-### [GET] `/nutrition/facts/{keyword}`
+### [GET] `/nutrition-facts/{keyword}`
 
 #### Request
 
