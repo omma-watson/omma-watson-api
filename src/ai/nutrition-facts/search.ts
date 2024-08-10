@@ -78,5 +78,5 @@ export const searchNutritionFacts = async (
       식품중량: string;
     };
     score: number;
-  };
+  }[];
 };
