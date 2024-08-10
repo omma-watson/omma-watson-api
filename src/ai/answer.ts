@@ -78,6 +78,7 @@ export const answerQuestion = async (question: string) => {
     feedback: { ...response.feedback },
     food_name: foodName,
     persona: '임신 15주차',
+    products: [],
   };
   return result;
 };
