@@ -20,6 +20,7 @@ export const model = new ChatOpenAI({
   apiKey: OPENAI_API_KEY,
   model: 'gpt-4o-mini',
   maxRetries: 3,
+  maxTokens: 16000, // max
 });
 // export const modelWithTools = model.bind({
 //   tools: [nutritionSearchTool],
