@@ -1,5 +1,6 @@
 import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgres';
 import { OpenAIEmbeddings } from '@langchain/openai';
+import { kv } from '@vercel/kv';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { withCORS } from '@/cors';
@@ -42,61 +43,69 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const config = {
-    postgresConnectionOptions: {
-      connectionString: POSTGRES_URL,
-    },
-  };
-  const embeddings = new OpenAIEmbeddings({
-    apiKey: OPENAI_API_KEY,
-    model: 'text-embedding-3-small',
-  });
-  const vectorstore = await VercelPostgres.initialize(embeddings, config);
-
-  const searchResult = await vectorstore.similaritySearchWithScore(
-    foodName,
-    resultCount,
-  );
-  const result = searchResult.map(([document, score]) => {
-    const metadata = document.metadata as DataRecord;
-    const nutrition = pick(stripEmpty(metadata), NUTRITION_KEYS);
-
-    // nutrition 의 각각의 value 를 (metadata.영양성분함량기준량 -> ex> '100g'), (metadata.식품중량 -> ex> '750g') 으로 나누어서 계산.
-    const standardWeight = parseFloat(metadata.영양성분함량기준량);
-    const foodTotalWeight = parseFloat(metadata.식품중량);
-
-    let totalNutrition: Record<(typeof NUTRITION_KEYS)[number], string> = {};
-    if (
-      standardWeight &&
-      !isNaN(standardWeight) &&
-      foodTotalWeight &&
-      !isNaN(foodTotalWeight)
-    ) {
-      totalNutrition = NUTRITION_KEYS.reduce(
-        (acc, key) => {
-          const value = parseFloat(nutrition[key]);
-          if (value) {
-            acc[key] = ((value * foodTotalWeight) / standardWeight).toString();
-          }
-          return acc;
-        },
-        {} as Record<(typeof NUTRITION_KEYS)[number], string>,
-      );
-    }
-
-    return {
-      id: document.metadata.id,
-      metadata: pick(metadata, ['식품명', '업체명', '대표식품명']),
-      nutrition,
-      totalNutrition,
-      totalStandards: {
-        영양성분함량기준량: standardWeight.toString(),
-        식품중량: foodTotalWeight.toString(),
+  const cacheKey = `food:${foodName}:count:${resultCount}`;
+  let result = await kv.get(cacheKey);
+  if (!result) {
+    const config = {
+      postgresConnectionOptions: {
+        connectionString: POSTGRES_URL,
       },
-      score,
     };
-  });
-  console.log(result);
+    const embeddings = new OpenAIEmbeddings({
+      apiKey: OPENAI_API_KEY,
+      model: 'text-embedding-3-small',
+    });
+    const vectorstore = await VercelPostgres.initialize(embeddings, config);
+
+    const searchResult = await vectorstore.similaritySearchWithScore(
+      foodName,
+      resultCount,
+    );
+    result = searchResult.map(([document, score]) => {
+      const metadata = document.metadata as DataRecord;
+      const nutrition = pick(stripEmpty(metadata), NUTRITION_KEYS);
+
+      // nutrition 의 각각의 value 를 (metadata.영양성분함량기준량 -> ex> '100g'), (metadata.식품중량 -> ex> '750g') 으로 나누어서 계산.
+      const standardWeight = parseFloat(metadata.영양성분함량기준량);
+      const foodTotalWeight = parseFloat(metadata.식품중량);
+
+      let totalNutrition: Record<(typeof NUTRITION_KEYS)[number], string> = {};
+      if (
+        standardWeight &&
+        !isNaN(standardWeight) &&
+        foodTotalWeight &&
+        !isNaN(foodTotalWeight)
+      ) {
+        totalNutrition = NUTRITION_KEYS.reduce(
+          (acc, key) => {
+            const value = parseFloat(nutrition[key]);
+            if (value) {
+              acc[key] = (
+                (value * foodTotalWeight) /
+                standardWeight
+              ).toString();
+            }
+            return acc;
+          },
+          {} as Record<(typeof NUTRITION_KEYS)[number], string>,
+        );
+      }
+
+      return {
+        id: document.metadata.id,
+        metadata: pick(metadata, ['식품명', '업체명', '대표식품명']),
+        nutrition,
+        totalNutrition,
+        totalStandards: {
+          영양성분함량기준량: standardWeight.toString(),
+          식품중량: foodTotalWeight.toString(),
+        },
+        score,
+      };
+    });
+    console.log(result);
+    await kv.set(cacheKey, result);
+  }
 
   // Cache the result for 3 days
   res.setHeader('Cache-Control', 's-maxage=259200, stale-while-revalidate');
