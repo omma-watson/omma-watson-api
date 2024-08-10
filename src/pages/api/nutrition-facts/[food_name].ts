@@ -9,7 +9,7 @@ import { pick } from '../../../utils';
 const POSTGRES_URL = process.env.POSTGRES_URL || '';
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
 
-const DEFAULT_K = 3;
+const DEFAULT_K = 5;
 
 const stripEmpty = (obj: Record<string, any>) => {
   return Object.fromEntries(
@@ -93,7 +93,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         영양성분함량기준량: standardWeight.toString(),
         식품중량: foodTotalWeight.toString(),
       },
-      score: 1 - score,
+      score,
     };
   });
   console.log(result);

@@ -25,7 +25,7 @@ export async function main() {
     return {
       id: document.metadata.id,
       data: document.metadata,
-      score: 1 - score,
+      score,
     };
   });
   console.log(result);
