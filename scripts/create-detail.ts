@@ -3,6 +3,7 @@ import { PromptTemplate } from '@langchain/core/prompts';
 
 import { model } from '@/ai';
 import { searchNutritionFacts } from '@/nutrition-facts/search';
+import { createRandom } from '@/utils';
 
 const extractFoodNameFromQuestion = async (
   question: string,
@@ -30,6 +31,9 @@ const main = async () => {
   const nutritionFacts = await searchNutritionFacts(foodName, 5);
 
   // 프롬프트 템플릿 정의
+  // const feedbackGood = createRandom(1, 200);
+  // const feedbackBad = createRandom(1, 200);
+
   const promptTemplate = new PromptTemplate({
     template: `다음 분석을 바탕으로 구조화된 JSON 응답을 제공해주세요. 음식이 아닌 건 절대 안돼요로 하고 아니라고 해주세요.
 
@@ -42,7 +46,7 @@ const main = async () => {
       badge: 추천도. '추천', '양호', '주의', '위험' 중 하나.
       content: 상세 설명. Markdown으로 강조. 데이터를 인용하는 경우 출처를 꼭 명시해주세요 (소스에서 그대로).
       solution: 대안이나 주의사항, \`~하기\`, \`~보기\` 등과 같은 형태로 끝나는 짧은 여러 개의 추천. \`string[]\` 타입.
-      feedback.comment: 일반적인 의견. nested key
+      feedback.comment: \`임신 15주차 엄마의 (?)%가 (일반적인 의견)이라고 생각했어요.\` 형태로 작성하기. nested key
       `,
     inputVariables: ['question', 'nutritionFacts'],
   });
@@ -50,6 +54,8 @@ const main = async () => {
   const prompt = await promptTemplate.format({
     question,
     nutritionFacts: JSON.stringify(nutritionFacts),
+    // feedbackGood,
+    // feedbackBad,
   });
   const parser = new JsonOutputParser();
 
@@ -59,6 +65,16 @@ const main = async () => {
   const response = await parser.invoke(content);
 
   console.log(JSON.stringify(response, null, 2));
+
+  const result = {
+    ...response,
+    feedback: {
+      ...response.feedback,
+    },
+    food_name: foodName,
+    persona: '임신 15주차',
+  };
+  console.log(result);
 };
 
 main();
