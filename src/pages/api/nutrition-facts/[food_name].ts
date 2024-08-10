@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { searchNutritionFacts } from '@/ai/nutrition-facts/search';
 import { withCORS } from '@/cors';
-import { searchNutritionFacts } from '@/nutrition-facts/search';
 
 const DEFAULT_K = 5;
 

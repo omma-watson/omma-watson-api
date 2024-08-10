@@ -1,7 +1,7 @@
 import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgres';
 import { kv } from '@vercel/kv';
 
-import { embeddings, vectorstoreConfig } from '@/ai';
+import { embeddings, vectorstoreConfig } from '@/ai/constants';
 
 export const searchReferences = async (
   foodName: string,

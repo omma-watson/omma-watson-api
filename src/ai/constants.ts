@@ -15,11 +15,12 @@ export const vectorstoreConfig = {
 export const embeddings = new OpenAIEmbeddings({
   apiKey: OPENAI_API_KEY,
   model: 'text-embedding-3-small',
+  maxRetries: 5,
 });
 export const model = new ChatOpenAI({
   apiKey: OPENAI_API_KEY,
   model: 'gpt-4o-mini',
-  maxRetries: 3,
+  maxRetries: 5,
   maxTokens: 16000, // max
 });
 // export const modelWithTools = model.bind({

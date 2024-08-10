@@ -1,11 +1,11 @@
 import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgres';
 
-import { embeddings, vectorstoreConfig } from '@/ai';
+import { embeddings, vectorstoreConfig } from '@/ai/constants';
 import {
   NUTRITION_VS_TEXT_KEYS,
   NutritionFactsDataRecord,
   NutritionFactsDataRecordKey,
-} from '@/nutrition-facts';
+} from '@/ai/nutrition-facts';
 import { pick } from '@/utils';
 
 // load data from ./전국통합식품영양성분정보_음식_표준데이터.json

@@ -1,6 +1,6 @@
 import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgres';
 
-import { embeddings, vectorstoreConfig } from '@/ai';
+import { embeddings, vectorstoreConfig } from '@/ai/constants';
 
 const nhsukDocs = `
 # 임신 중 식품 섭취 가이드

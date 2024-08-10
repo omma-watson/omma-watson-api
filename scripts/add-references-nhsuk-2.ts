@@ -1,6 +1,6 @@
 import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgres';
 
-import { embeddings, vectorstoreConfig } from '@/ai';
+import { embeddings, vectorstoreConfig } from '@/ai/constants';
 
 const nhsukDocs = `
 # 임신 중 비타민과 미네랄 섭취 가이드

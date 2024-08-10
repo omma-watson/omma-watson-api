@@ -1,7 +1,7 @@
 import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgres';
 import { Document } from 'langchain/document';
 
-import { embeddings, vectorstoreConfig } from '@/ai';
+import { embeddings, vectorstoreConfig } from '@/ai/constants';
 
 async function main() {
   const vectorstore = await VercelPostgres.initialize(embeddings, {

@@ -1,4 +1,4 @@
-import { searchNutritionFacts } from '@/nutrition-facts/search';
+import { searchNutritionFacts } from '@/ai/nutrition-facts/search';
 
 export async function main() {
   const query = '투썸플레이스케이크';
