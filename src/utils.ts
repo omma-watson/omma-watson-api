@@ -8,3 +8,9 @@ export const pick = <T extends object, K extends keyof T>(
   }
   return picked;
 };
+
+export const stripEmpty = (obj: Record<string, any>) => {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([_, value]) => value !== ''),
+  );
+};

@@ -2,13 +2,12 @@ import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgre
 import * as dotenv from 'dotenv';
 
 import { embeddings, vectorstoreConfig } from '@/ai';
-
 import {
-  DATA_RECORD_TEXT_KEYS,
-  DataRecord,
-  DataRecordKey,
-} from '../src/nutrition-facts';
-import { pick } from '../src/utils';
+  NUTRITION_VS_TEXT_KEYS,
+  NutritionFactsDataRecord,
+  NutritionFactsDataRecordKey,
+} from '@/nutrition-facts';
+import { pick } from '@/utils';
 
 dotenv.config();
 
@@ -24,11 +23,12 @@ export async function main() {
 
   const metadataKeys = Object.keys(data.records[0]).filter(
     (n) =>
-      !DATA_RECORD_TEXT_KEYS.includes(n as DataRecordKey) || n !== '식품코드',
-  ) as DataRecordKey[];
+      !NUTRITION_VS_TEXT_KEYS.includes(n as NutritionFactsDataRecordKey) ||
+      n !== '식품코드',
+  ) as NutritionFactsDataRecordKey[];
   const ids = await vectorstore.addDocuments(
-    data.records.map((v: DataRecord) => {
-      const pageContent = JSON.stringify(pick(v, DATA_RECORD_TEXT_KEYS));
+    data.records.map((v: NutritionFactsDataRecord) => {
+      const pageContent = JSON.stringify(pick(v, NUTRITION_VS_TEXT_KEYS));
       const metadata = { id: v.식품코드, ...pick(v, metadataKeys) };
       return {
         pageContent,
@@ -43,6 +43,8 @@ export async function main() {
   const query = '사과 아이스티';
   const result = await vectorstore.similaritySearch(query, 5);
   console.log(result);
+
+  await vectorstore.end();
 }
 
 main();

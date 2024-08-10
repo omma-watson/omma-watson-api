@@ -1,4 +1,4 @@
-export type DataRecord = {
+export type NutritionFactsDataRecord = {
   식품코드: string;
   식품명: string;
   데이터구분코드: string;
@@ -51,15 +51,11 @@ export type DataRecord = {
   제공기관코드: string;
   제공기관명: string;
 };
-export type DataRecordKey = Partial<keyof DataRecord>;
+export type NutritionFactsDataRecordKey = Partial<
+  keyof NutritionFactsDataRecord
+>;
 
-type StoredVectorData = {
-  memoryVectors: any[];
-  texts: string[];
-  metadatas: object[];
-};
-
-export const DATA_RECORD_TEXT_KEYS = [
+export const NUTRITION_VS_TEXT_KEYS = [
   '식품명',
   '데이터구분명',
   '식품기원명',
@@ -70,7 +66,7 @@ export const DATA_RECORD_TEXT_KEYS = [
   '식품세분류명',
   '업체명',
   '제공기관명',
-] as DataRecordKey[];
+] as NutritionFactsDataRecordKey[];
 
 export const NUTRITION_KEYS = [
   '인(mg)',
