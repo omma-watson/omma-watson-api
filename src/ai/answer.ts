@@ -82,7 +82,7 @@ export const answerQuestion = async (question: string) => {
     ...response,
     feedback: { ...response.feedback },
     food_name: foodName,
-    persona: '임신 15주차',
+    persona: 'Pregnancy 15 weeks',
     products: [],
   };
   return result;
