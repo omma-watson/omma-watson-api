@@ -68,9 +68,7 @@ const main = async () => {
 
   const result = {
     ...response,
-    feedback: {
-      ...response.feedback,
-    },
+    feedback: { ...response.feedback },
     food_name: foodName,
     persona: '임신 15주차',
   };

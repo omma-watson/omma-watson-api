@@ -30,7 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const result = searchNutritionFacts(foodName, resultCount);
+  const result = await searchNutritionFacts(foodName, resultCount);
 
   // Cache the result for 3 days
   res.setHeader('Cache-Control', 's-maxage=259200, stale-while-revalidate');
