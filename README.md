@@ -1,6 +1,6 @@
 1. 생성류
-   1. 키워드 -> 제일 유사한 상품 n개(query로 온 만큼) 골라서 `vectorStore.similaritySearch()`, 영양성분정보 반환  
-     - TODO: `MemoryVectorStore` -> Vercel Postgres VectorStore 로 다시 짜기
+   1. 키워드 -> 제일 유사한 상품 n개(query로 온 만큼) 골라서 `vectorStore.similaritySearch()`, 영양성분정보 반환
+      1. TODO: `MemoryVectorStore` -> Vercel Postgres VectorStore 로 다시 짜기
    2. 질문 -> 질문 상세
       1. 질문 ID (`id`)
       2. 먹어도 되는지 안되는지 (`title`)
