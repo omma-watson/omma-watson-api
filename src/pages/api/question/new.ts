@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { MOCKED_QUESTION_DETAILS } from '../../../constants';
-import { withCORS } from '../../../cors';
+import { MOCKED_QUESTION_DETAILS } from '@/constants';
+import { withCORS } from '@/cors';
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {

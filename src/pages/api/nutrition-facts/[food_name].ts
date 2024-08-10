@@ -2,9 +2,9 @@ import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgre
 import { OpenAIEmbeddings } from '@langchain/openai';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { withCORS } from '../../../cors';
-import { DataRecord, NUTRITION_KEYS } from '../../../nutrition-facts';
-import { pick } from '../../../utils';
+import { withCORS } from '@/cors';
+import { DataRecord, NUTRITION_KEYS } from '@/nutrition-facts';
+import { pick } from '@/utils';
 
 const POSTGRES_URL = process.env.POSTGRES_URL || '';
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
