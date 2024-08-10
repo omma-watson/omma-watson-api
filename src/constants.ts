@@ -12,7 +12,8 @@ export type NBProduct = {
 
 export type QuestionDetail = {
   id: string;
-  badge: '추천' | '양호' | '주의' | '위험';
+  // badge: '추천' | '양호' | '주의' | '위험';
+  badge: 0 | 1 | 2 | 3;
 
   content: string;
   solution: string[];
@@ -30,7 +31,8 @@ export type QuestionDetail = {
 export const MOCKED_QUESTION_DETAILS: QuestionDetail[] = [
   {
     id: '1',
-    badge: '주의',
+    // badge: '주의',
+    badge: 2,
     content:
       '마라탕의 매운 정도와 당면의 양에 따라 소화에 부담을 줄 수 있습니다. 마라탕에 포함된 고추기름과 향신료는 위산 분비를 촉진하여 속쓰림을 유발할 수 있으며, 당면은 소화가 잘 되지 않아 더부룩함을 느낄 수 있습니다. 또한, 마라탕의 높은 나트륨 함량은 부종을 유발할 수 있어 주의가 필요합니다. (출처: 대한영양사협회)',
     solution: ['1단계로 낮춰보기', '물을 많이 마시기', '채소를 많이 넣어 먹기'],
@@ -73,7 +75,8 @@ export const MOCKED_QUESTION_DETAILS: QuestionDetail[] = [
 export type TrendingCard = {
   id: string;
   title: string;
-  badge: '추천' | '양호' | '주의' | '위험';
+  // badge: '추천' | '양호' | '주의' | '위험';
+  badge: 0 | 1 | 2 | 3;
   persona: string;
 };
 
