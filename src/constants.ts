@@ -12,10 +12,10 @@ export type NBProduct = {
 
 export type QuestionDetail = {
   id: string;
+  badge: '추천' | '양호' | '주의' | '위험';
 
-  title: string;
   content: string;
-  solution: string;
+  solution: string[];
   feedback: {
     good: number;
     bad: number;
@@ -30,11 +30,10 @@ export type QuestionDetail = {
 export const MOCKED_QUESTION_DETAILS: QuestionDetail[] = [
   {
     id: '1',
-    title: '마라탕 2단계는 주의해서 드세요.',
+    badge: '주의',
     content:
       '마라탕의 매운 정도와 당면의 양에 따라 소화에 부담을 줄 수 있습니다. 마라탕에 포함된 고추기름과 향신료는 위산 분비를 촉진하여 속쓰림을 유발할 수 있으며, 당면은 소화가 잘 되지 않아 더부룩함을 느낄 수 있습니다. 또한, 마라탕의 높은 나트륨 함량은 부종을 유발할 수 있어 주의가 필요합니다. (출처: 대한영양사협회)',
-    solution:
-      '마라탕을 꼭 드시고 싶다면, 1단계로 낮추고 당면의 양을 줄이세요. 또한, 물을 충분히 마시고 채소를 많이 넣어 먹는 것이 좋습니다.',
+    solution: ['1단계로 낮춰보기', '물을 많이 마시기', '채소를 많이 넣어 먹기'],
     feedback: {
       good: 45,
       bad: 12,
@@ -71,7 +70,19 @@ export const MOCKED_QUESTION_DETAILS: QuestionDetail[] = [
   // }
 ];
 
-export const MOCKED_TRENDINGS = MOCKED_QUESTION_DETAILS.map((v) =>
-  pick(v, ['id', 'title', 'persona']),
-);
-export type TrendingCard = (typeof MOCKED_TRENDINGS)[number];
+export type TrendingCard = {
+  id: string;
+  title: string;
+  badge: '추천' | '양호' | '주의' | '위험';
+  persona: string;
+};
+
+export const MOCKED_TRENDINGS = (() => {
+  const items: TrendingCard[] = MOCKED_QUESTION_DETAILS.map((v) => ({
+    ...pick(v, ['id', 'badge', 'persona']),
+    title: '',
+  }));
+  items[0].title = '쫄깃쫄깃 당면 듬뿍 들어간 마라탕 2단계 먹어도 되나요?';
+  items[1].title = '생크림 잔뜩 들어간 딸기 케이크 어떤가요';
+  return items;
+})();
