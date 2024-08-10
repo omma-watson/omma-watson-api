@@ -52,8 +52,9 @@
 
 ## Query
 
-### [GET] `/question/badges`
+### ~~[GET] `/question/badges`~~
 
+- -> 프엔에서 하드코딩?
 - 메인 화면 -> 추천 배지
 
 ```json
