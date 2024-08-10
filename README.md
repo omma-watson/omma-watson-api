@@ -37,7 +37,10 @@
 8. `food_name` (아래의 영양성분 검색 API에 사용할 검색 키워드)
 9. `persona` (페르소나 사용자 정보)
 
-### [GET] `/nutrition-facts/{food_name}`
+### [GET] `/nutrition-facts/{food_name}?k={k}`
+
+- `k` 기본값은 3
+- 유사도와 같이 반환함
 
 #### Request
 
@@ -48,7 +51,7 @@
 #### Response
 
 - 키워드 -> 제일 유사한 상품 n개(query로 온 만큼) 골라서 `vectorStore.similaritySearch()`, 영양성분정보 반환
-- TODO: `MemoryVectorStore` -> Vercel Postgres VectorStore 로 다시 짜기
+- Vercel Postgres VectorStore 로 구현됨 (3~5초 이내로 걸릴듯)
 
 ## Query
 

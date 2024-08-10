@@ -20,7 +20,14 @@ export async function main() {
   const vectorstore = await VercelPostgres.initialize(embeddings, config);
 
   const query = '마라탕';
-  const result = await vectorstore.similaritySearch(query, 5);
+  const searchResult = await vectorstore.similaritySearchWithScore(query, 3);
+  const result = searchResult.map(([document, score]) => {
+    return {
+      id: document.metadata.id,
+      data: document.metadata,
+      score: 1 - score,
+    };
+  });
   console.log(result);
 
   await vectorstore.end();
