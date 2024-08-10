@@ -11,6 +11,8 @@ export const pick = <T extends object, K extends keyof T>(
 
 export const stripEmpty = (obj: Record<string, any>) => {
   return Object.fromEntries(
-    Object.entries(obj).filter(([_, value]) => value !== ''),
+    Object.entries(obj).filter(
+      ([_, value]) => typeof value !== undefined && value !== '',
+    ),
   );
 };

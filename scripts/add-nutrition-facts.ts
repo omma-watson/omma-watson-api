@@ -1,5 +1,4 @@
 import { VercelPostgres } from '@langchain/community/vectorstores/vercel_postgres';
-import * as dotenv from 'dotenv';
 
 import { embeddings, vectorstoreConfig } from '@/ai';
 import {
@@ -8,8 +7,6 @@ import {
   NutritionFactsDataRecordKey,
 } from '@/nutrition-facts';
 import { pick } from '@/utils';
-
-dotenv.config();
 
 // load data from ./전국통합식품영양성분정보_음식_표준데이터.json
 const data = require('../전국통합식품영양성분정보_음식_표준데이터.json');

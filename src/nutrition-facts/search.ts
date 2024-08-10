@@ -24,7 +24,7 @@ export const searchNutritionFacts = async (
     );
     result = searchResult.map(([document, score]) => {
       const metadata = document.metadata as NutritionFactsDataRecord;
-      const nutrition = pick(stripEmpty(metadata), NUTRITION_KEYS);
+      const nutrition = stripEmpty(pick(stripEmpty(metadata), NUTRITION_KEYS));
 
       // nutrition 의 각각의 value 를 (metadata.영양성분함량기준량 -> ex> '100g'), (metadata.식품중량 -> ex> '750g') 으로 나누어서 계산.
       const standardWeight = parseFloat(metadata.영양성분함량기준량);

@@ -1,8 +1,4 @@
-import * as dotenv from 'dotenv';
-
 import { searchNutritionFacts } from '@/nutrition-facts/search';
-
-dotenv.config();
 
 export async function main() {
   const query = '마라탕';
