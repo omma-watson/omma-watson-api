@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@langchain/community": "^0.2.25",
+    "@langchain/core": "^0.2.22",
+    "@vercel/postgres": "^0.9.0",
+    "langchain": "^0.2.13"
+  },
+  "devDependencies": {
+    "tsx": "^4.17.0"
+  }
+}

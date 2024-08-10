@@ -1,0 +1,2 @@
+vectorstores/food.json filter=lfs diff=lfs merge=lfs -text
+전국통합식품영양성분정보_음식_표준데이터.json filter=lfs diff=lfs merge=lfs -text
