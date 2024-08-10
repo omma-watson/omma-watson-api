@@ -50,6 +50,8 @@ export const answerQuestion = async (question: string) => {
     적절한 값이 있을 경우 영양성분정보도 사용해야 하며, 출처를 꼭 달아야 합니다.
     solution: 대안이나 주의사항, \`~하기\`, \`~보기\` 등과 같은 형태로 끝나는 짧은 여러 개의 추천. \`string[]\`.
     feedback.comment: \`임신 15주차 엄마의 (?)%가 (일반적인 의견)이라고 생각했어요.\` 형태로 작성하기. nested key
+
+    JSON은 무조건 영어로 써줘.
     `,
     inputVariables: ['question', 'nutritionFacts', 'references'],
   });
