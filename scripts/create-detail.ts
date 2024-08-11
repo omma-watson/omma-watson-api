@@ -12,6 +12,28 @@ const main = async () => {
   }
 
   {
+    const result = await answerQuestionCached('딸기몽쉘');
+    console.log([result]);
+  }
+  {
+    const result = await answerQuestionCached('몽쉘');
+    console.log([result]);
+  }
+
+  {
+    const result = await answerQuestionCached('라면');
+    console.log([result]);
+  }
+  {
+    const result = await answerQuestionCached('짜파게티');
+    console.log([result]);
+  }
+  {
+    const result = await answerQuestionCached('Ramen');
+    console.log([result]);
+  }
+
+  {
     const result = await answerQuestionCached('Whiskey');
     console.log([result]);
   }
