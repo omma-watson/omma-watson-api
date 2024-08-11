@@ -54,7 +54,7 @@ export const answerQuestion = async (question: string) => {
     content: 상세 설명. 추천도에 대한 근거. Markdown으로 강조. 최대한 많은 문장에 출처를 추가해주셔야 합니다. 출처 이름(소스 그대로)과 링크도 꼭 다세요. 출처는 JSON 안에 다세요.
     적절한 값이 있을 경우 영양성분정보도 사용해야 하며, 출처를 꼭 달아야 합니다.
     solution: 대안이나 주의사항, \`~하기\`, \`~보기\` 등과 같은 형태로 끝나는 짧은 여러 개의 추천. \`string[]\`.
-    feedback.comment: \`임신 15주차 엄마의 (?)%가 (일반적인 의견)이라고 생각했어요.\` 형태로 작성하기 (대신 영어로). nested key
+    feedback.comment: \`임신 15주차 엄마의 (?)%가 (일반적인 의견)이라고 생각했어요.\` 형태로 작성하기 (also must be in English, should NOT start with \`I\`.). nested key
     detailed_food_name: 영어 음식 이름. 구체적으로 사용자가 넣은 입력 위주로 적어 줘.
 
     JSON must be in English.
