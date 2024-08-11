@@ -7,7 +7,7 @@ const main = async () => {
   }
 
   {
-    const result = await answerQuestionCached('라면 먹어도 되나요?');
+    const result = await answerQuestionCached('마라탕');
     console.log([result]);
   }
 
