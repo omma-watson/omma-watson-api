@@ -12,7 +12,7 @@ const main = async () => {
   }
 
   {
-    const result = await answerQuestionCached('육회 먹어도 되나요?');
+    const result = await answerQuestionCached('Whiskey');
     console.log([result]);
   }
 };
