@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { answerQuestion } from '@/ai/answer';
+import { answerQuestion, answerQuestionCached } from '@/ai/answer';
 import { withCORS } from '@/cors';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(400).json({ error: 'Invalid Query Type' });
     return;
   }
-  const answer = await answerQuestion(question);
+  const answer = await answerQuestionCached(question);
   res.status(200).json(answer);
 };
 
